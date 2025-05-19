@@ -22,7 +22,7 @@ export default function LoginPage() {
               username:user.username,
               password:user.password,
               callbackUrl: "/",
-          })
+        })
             }
 
         }}
