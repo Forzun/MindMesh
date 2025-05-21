@@ -36,7 +36,7 @@ import {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <img
-            src="/2151002599.jpg"
+            src="freepik__adjust__54853.jpeg"
             className="h-7 w-7 shrink-0 rounded-full"
             width={50}
             height={50}
