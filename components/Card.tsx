@@ -17,7 +17,7 @@ export default function Card() {
 
     return () => {
       // Clean up the script when the component unmounts
-      document.body.removeChild(script);
+    document.body.removeChild(script);
     };
   }, []);
 
@@ -31,7 +31,7 @@ export default function Card() {
         <div className="flex flex-col w-full h-full gap-2">
             <div className="flex items-center justify-between">
 
-                    <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 font-sans tracking-tight dark:text-neutral-300 text-base">
+                    <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 tracking-tight dark:text-neutral-300 text-base">
                         <span>
                           <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 "/>
                         </span>
@@ -51,7 +51,6 @@ export default function Card() {
             {/* <iframe className="rounded-md w-full" src={getEnbedUrl(url)} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> */}
             </div>
         </div>
-
         {/*https://www.youtube.com/embed/J9K_mTjQC1M/si=vslKNITJJ_n1sk4X */}
       </div>
   );  

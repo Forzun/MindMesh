@@ -1,68 +1,75 @@
-  'use client'
-  import { cn } from "@/lib/utils";
-  import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
-  import { Brain } from "lucide-react";
-  import { IconBrandYoutube } from '@tabler/icons-react';
-  import { useState } from "react";
-  import Card from "./Card";
+"use client";
 
+import { cn } from "@/lib/utils";
+import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
+import { Brain } from "lucide-react";
+import { IconBrandYoutube } from "@tabler/icons-react";
+import { useState } from "react";
+import Card from "./Card";
+import { Session } from "next-auth";
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import { DropdownMenuContent, DropdownMenuShortcut } from "./ui/dropdown-menu";
+import { Button } from "./ui/button";
+import { DropdownMenuDemo } from "./DropDown";
 
-  export default function SideBar() { 
-    const Links = [ 
-      {
-        label: "Youtube", 
-        href: "#", 
-        icon: ( 
-          <IconBrandYoutube />
-        )
-      },
-      {
-        label: "Youtube", 
-        href: "#", 
-        icon: ( 
-          <IconBrandYoutube />
-        )
-      },
-      {
-        label: "Youtube", 
-        href: "#", 
-        icon: ( 
-          <IconBrandYoutube />
-        )
-      }
-    ]
+export default function SideBar({ session }: { session: Session | null }) {
+  const Links = [
+    {
+      label: "Youtube",
+      href: "#",
+      icon: <IconBrandYoutube />,
+    },
+    {
+      label: "Youtube",
+      href: "#",
+      icon: <IconBrandYoutube />,
+    },
+    {
+      label: "Youtube",
+      href: "#",
+      icon: <IconBrandYoutube />,
+    },
+  ];
 
-    const [open , setOpen] = useState(false);
-    
-    return <div className={cn(
-      "h-screen mx-auto flex w-full sticky flex-col overflow-hidden rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800", // for your use case, use `h-screen` instead of `h-[60vh]`
-    )}>
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div
+      className={cn(
+        "h-screen mx-auto flex w-full sticky flex-col overflow-hidden rounded-md border border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800" // for your use case, use `h-screen` instead of `h-[60vh]`
+      )}
+    >
       <div className=" z-10">
-      <Sidebar open={open} setOpen={setOpen} animate={false}>
+        <Sidebar open={open} setOpen={setOpen} animate={false}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-hidden">
               <>
                 <Brain />
               </>
               <div className="mt-8 flex flex-col gap-2">
-                  {Links.map((link , index) => (
-                    <SidebarLink key={index} link={link} />
-                  ))}
+                {Links.map((link, index) => (
+                  <SidebarLink key={index} link={link} />
+                ))}
               </div>
-            </div>  
+            </div>
             <div>
-                <SidebarLink
+              <SidebarLink
                 link={{
-                  label: "Credit",
+                  label: session?.user?.name || " ",
                   href: "#",
-                  icon: (
-                    <img
-                      src="https://assets.aceternity.com/manu.png"
-                      className="h-7 w-7 shrink-0 rounded-full"
-                      width={50}
-                      height={50}
-                      alt="Avatar"
-                    />
+                  icon: (                    
+                        //   <img
+                        //   src="https://assets.aceternity.com/manu.png"
+                        //   className="h-7 w-7 shrink-0 rounded-full"
+                        //   width={50}
+                        //   height={50}
+                        //   alt="Avatar"
+                        // />
+                        <DropdownMenuDemo />
                   ),
                 }}
               />
@@ -74,21 +81,15 @@
         <Dashboard />
       </div>
     </div>
-  }
-
-
-  const Dashboard = () => {
-    return (
-      <div className="flex flex-1 h-full justify-center">
-        <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card /> 
-          <Card /> 
-          <Card />
-        </div>
+  );
+}
+const Dashboard = () => {
+  return (
+    <div className="flex flex-1 h-full justify-center">
+      <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
+        <Card />
+        <Card />
       </div>
-    );
-  };
+    </div>
+  );
+};
