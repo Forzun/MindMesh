@@ -1,8 +1,9 @@
 import { signOut } from "next-auth/react";
-import { Button } from "./ui/button";
+import { redirect } from "next/navigation";
+export default function SignOutButton(){ 
 
-
-function SignOutButton(){ 
-
-    return <Button onClick={() => signOut()}>Sign Out</Button>
+    return <button onClick={() => {
+        signOut();
+        redirect("/pages/signin")
+    }}>Sign Out</button>
 }

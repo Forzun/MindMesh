@@ -7,13 +7,6 @@ import { IconBrandYoutube } from "@tabler/icons-react";
 import { useState } from "react";
 import Card from "./Card";
 import { Session } from "next-auth";
-import {
-  DropdownMenu,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { DropdownMenuContent, DropdownMenuShortcut } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
 import { DropdownMenuDemo } from "./DropDown";
 
 export default function SideBar({ session }: { session: Session | null }) {
@@ -61,16 +54,7 @@ export default function SideBar({ session }: { session: Session | null }) {
                 link={{
                   label: session?.user?.name || " ",
                   href: "#",
-                  icon: (                    
-                        //   <img
-                        //   src="https://assets.aceternity.com/manu.png"
-                        //   className="h-7 w-7 shrink-0 rounded-full"
-                        //   width={50}
-                        //   height={50}
-                        //   alt="Avatar"
-                        // />
-                        <DropdownMenuDemo />
-                  ),
+                  icon: <DropdownMenuDemo />,
                 }}
               />
             </div>

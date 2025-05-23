@@ -30,6 +30,7 @@ import {
     DropdownMenuSubTrigger,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import SignOutButton from "./SIgnOut"
   
   export function DropdownMenuDemo() {
     return (
@@ -101,7 +102,7 @@ import {
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <LogOut />
-            <span>Log out</span>
+            <span><SignOutButton /></span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>

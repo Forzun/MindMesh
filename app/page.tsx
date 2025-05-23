@@ -11,10 +11,10 @@ export default async function Home(){
   const session = await getUserDetails(); 
   console.log(session);
 
-  if(session?.user){ 
-    redirect("/dashboard")
+  if(!session){ 
+    redirect("/pages/signin");
   }else{ 
-    redirect("/pages/signin")
+    redirect("/dashboard")
   }
 
   return <div className="h-screen w-full flex items-center justify-center">
