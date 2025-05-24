@@ -18,17 +18,17 @@ model User {
 }
 
 model Content {
-  id      Int @default(autoincrement())
+  id      Int @default(autoincrement()) @id
   title   String @unique
   link    String  
   tag     String[]
   userId  Int 
-  user    User @relation(fields: [userId], references: [id])
+  user    User @relation(fields: [userId], references: [id] , onDelete: Cascade)
 }
 
 model link { 
-  id      Int @default(autoincrement())
+  id      Int @default(autoincrement()) @id
   hash    String @unique
   userId  Int 
-  user    User @relation(fields: [userId] , references: [id])
+  user    User @relation(fields: [userId] , references: [id] , onDelete: Cascade)
 }

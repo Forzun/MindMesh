@@ -5,6 +5,7 @@ import { getSession } from "next-auth/react";
 import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
+import NewItem from "@/components/NewItem";
 
 export default function Dashboard(){
     const [session, setSession] = useState<Session | null>(null);
@@ -21,7 +22,8 @@ export default function Dashboard(){
 
     return <div className="h-screen w-full">
         <div className="">
-            <SideBar session={session} />
+            {/* <SideBar session={session} /> */}
+            <NewItem userId={session?.user?.id} />
         </div>
     </div>
 }   
