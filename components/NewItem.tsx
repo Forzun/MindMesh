@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader } from "./ui/card";
 import { Label } from "@/components/ui/label"
 import { Input } from "./ui/input";
@@ -11,8 +13,6 @@ import {
 import { Button } from "./ui/button";
 import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 
 interface FormData { 
     url:string; 
@@ -42,8 +42,9 @@ export default function NewItem({userId}: {userId: string | undefined}){
             title:data.title, 
             link:data.url, 
             tag:[platform], 
-            userId:Number(userId)
+            userId:14
         })
+        console.log(response)
     }
 
 
