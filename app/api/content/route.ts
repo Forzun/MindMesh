@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   try{
     const body = await req.json();  
 
-    const token = await getToken({ 
+    const token = await getToken({
       req:req, 
       secret:process.env.AUTH_SECRET
     })
@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
     const content  = await Client.content.create({ 
         data: {
           title: body.title,
-          link: body.link, 
+          link: body.link,
           tag: body.tag,
           userId:Number(token.id)
         }       

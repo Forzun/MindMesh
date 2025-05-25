@@ -13,6 +13,7 @@ import {
 import { Button } from "./ui/button";
 import { FormEvent, useEffect, useState } from "react";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 interface FormData { 
     url:string; 
@@ -44,6 +45,10 @@ export default function NewItem({userId}: {userId: string | undefined}){
             tag:[platform], 
             userId:14
         })
+
+        if(response?.data){ 
+            redirect("/dashboard")
+        }
         console.log(response)
     }
 
@@ -79,7 +84,7 @@ export default function NewItem({userId}: {userId: string | undefined}){
             </CardContent>
             <CardFooter>
                 <div className="flex justify-between w-full pt-4">
-                    <Button type="submit" variant="destructive" >Cencel</Button>
+                    <Button onClick={() => redirect("/dashboard")} type="submit" variant="destructive" >Cencel</Button>
                     <Button type="submit" variant="outline">Create</Button>
                 </div>
                 </CardFooter>

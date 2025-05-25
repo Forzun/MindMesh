@@ -2,20 +2,16 @@ import {
     Cloud,
     CreditCard,
     Github,
-    Keyboard,
     LifeBuoy,
     LogOut,
     Mail,
-    MessageSquare,
     Plus,
-    PlusCircle,
     Settings,
     User,
     UserPlus,
     Users,
   } from "lucide-react"
   
-  import { Button } from "@/components/ui/button"
   import {
     DropdownMenu,
     DropdownMenuContent,
@@ -31,6 +27,7 @@ import {
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
 import SignOutButton from "./SIgnOut"
+import RedirectButton from "./RedirectButton"
   
   export function DropdownMenuDemo() {
     return (
@@ -86,7 +83,7 @@ import SignOutButton from "./SIgnOut"
             </DropdownMenuSub>
             <DropdownMenuItem>
               <Plus />
-              <span>New Team</span>
+              <RedirectButton herf="/additem">New Item</RedirectButton>
               <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
             </DropdownMenuItem>
           </DropdownMenuGroup>
@@ -109,4 +106,3 @@ import SignOutButton from "./SIgnOut"
       </DropdownMenu>
     )
   }
-  

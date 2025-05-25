@@ -4,10 +4,11 @@ import { cn } from "@/lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { Brain } from "lucide-react";
 import { IconBrandYoutube } from "@tabler/icons-react";
-import { useState } from "react";
-import Card from "./Card";
+import { useEffect, useState } from "react";
 import { Session } from "next-auth";
 import { DropdownMenuDemo } from "./DropDown";
+import axios from "axios";
+import Card from "./Card";
 
 export default function SideBar({ session }: { session: Session | null }) {
   const Links = [
@@ -67,13 +68,25 @@ export default function SideBar({ session }: { session: Session | null }) {
     </div>
   );
 }
+
 const Dashboard = () => {
+  const [data , setData] = useState([]);
+
+  useEffect(() => { 
+      axios.get("http://localhost:3000/api/getcontent")
+      .then((res) => { 
+        setData(res.data);
+      }).catch(error => { 
+        console.log(error)
+      })
+  },[])
+
+  console.log(data)
   return (
     <div className="flex flex-1 h-full justify-center">
       <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
-        <Card />
-        <Card />
-      </div>
+      <Card data={data} />
+     </div>
     </div>
   );
 };
