@@ -2,11 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { Share2, Trash2} from "lucide-react";
-import { IconBrandYoutube } from "@tabler/icons-react";
+import { IconBrandTwitter, IconBrandYoutube } from "@tabler/icons-react";
 import { Tweet } from "react-tweet";
 
-export default function Card() {
-  const [url, setUrl] = useState("https://www.youtube.com/watch?v=syFZfO_wfMQ&ab_channel=OneDirectionVEVO");
+export default function Card({data , index}:{data:any , index:any}) {
 
   useEffect(() => {
     // Load Twitter widget script
@@ -16,7 +15,7 @@ export default function Card() {
     document.body.appendChild(script);
 
     return () => {
-      // Clean up the script when the component unmounts
+      // Clean up the script when the component unmounts 
     document.body.removeChild(script);
     };
   }, []);
@@ -33,13 +32,14 @@ export default function Card() {
 
                     <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 tracking-tight dark:text-neutral-300 text-base">
                         <span>
-                          <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 "/>
+                          {data.tag[0] === "youtube" ? <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 " /> : <IconBrandTwitter className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 "/>}
+                          {/* <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 "/> */}
                         </span>
-                        <h1 className="hover:text-neutral-400 transition-all duration-200">Study with me until i sleep</h1>
+                        <h1 className="hover:text-neutral-400 transition-all duration-200">{data.title}</h1>
                     </div>
 
                     <div className="flex gap-2 ">
-                        <a href="https://x.com/redcatgirls/status/1923973218320384088">
+                        <a href={data.link}>
                           <Share2 className="hover:text-neutral-400 transition-all duration-150 cursor-pointer hover:scale-110" width={20} height={20} />
                         </a>
                         <Trash2 className="hover:text-neutral-400 transition-all duration-150 cursor-pointer hover:scale-110" width={20} height={20} />
@@ -47,11 +47,11 @@ export default function Card() {
             </div>
 
             <div data-theme="light" className="">
-               <Tweet  id="1923973218320384088" />
-            {/* <iframe className="rounded-md w-full" src={getEnbedUrl(url)} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> */}
+               {data.tag[0] === "youtube" &&  <iframe className="rounded-md w-full" src={getEnbedUrl(data.link)} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe> }
+               {data.tag[0] === "twitter" && <Tweet  id={data.link} />}
+               {data.tag[0] === "spotify" && <iframe className="border-radius:12px" src={data.link} width="100%" height="352" frameBorder="0"  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>}
             </div>
         </div>
-        {/*https://www.youtube.com/embed/J9K_mTjQC1M/si=vslKNITJJ_n1sk4X */}
       </div>
   );  
 }

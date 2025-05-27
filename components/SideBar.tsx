@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { Brain } from "lucide-react";
-import { IconBrandYoutube } from "@tabler/icons-react";
+import { IconBrandYoutube, IconBrandTwitter, IconBrandSpotify } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
 import { DropdownMenuDemo } from "./DropDown";
@@ -18,14 +18,14 @@ export default function SideBar({ session }: { session: Session | null }) {
       icon: <IconBrandYoutube />,
     },
     {
-      label: "Youtube",
+      label: "Twitter",
       href: "#",
-      icon: <IconBrandYoutube />,
+      icon: <IconBrandTwitter />,
     },
     {
-      label: "Youtube",
+      label: "Spotify",
       href: "#",
-      icon: <IconBrandYoutube />,
+      icon: <IconBrandSpotify />,
     },
   ];
 
@@ -41,9 +41,10 @@ export default function SideBar({ session }: { session: Session | null }) {
         <Sidebar open={open} setOpen={setOpen} animate={false}>
           <SidebarBody className="justify-between gap-10">
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-hidden">
-              <>
-                <Brain />
-              </>
+              <div className="flex items-center gap-2">
+                <Brain className="w-7 h-9" />
+                <a href="/" className="text-xl font-semibold">MindMesh</a>
+              </div>
               <div className="mt-8 flex flex-col gap-2">
                 {Links.map((link, index) => (
                   <SidebarLink key={index} link={link} />
@@ -75,18 +76,19 @@ const Dashboard = () => {
   useEffect(() => { 
       axios.get("http://localhost:3000/api/getcontent")
       .then((res) => { 
-        setData(res.data);
+        setData(res.data.data);
       }).catch(error => { 
         console.log(error)
       })
   },[])
 
-  console.log(data)
   return (
     <div className="flex flex-1 h-full justify-center">
       <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
-      <Card data={data} />
+        {data.map((item , index) => { 
+          return <Card data={item} key={index} index={index} />
+        })}
      </div>
     </div>
-  );
+  );        
 };
