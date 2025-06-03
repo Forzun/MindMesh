@@ -6,9 +6,9 @@ import { Brain } from "lucide-react";
 import { IconBrandYoutube, IconBrandTwitter, IconBrandSpotify } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
-import { DropdownMenuDemo } from "./DropDown";
 import axios from "axios";
 import Card from "./Card";
+import { DropDownMenu } from "./DropDown";
 
 export default function SideBar({ session }: { session: Session | null }) {
   const Links = [
@@ -56,7 +56,7 @@ export default function SideBar({ session }: { session: Session | null }) {
                 link={{
                   label: session?.user?.name || " ",
                   href: "#",
-                  icon: <DropdownMenuDemo />,
+                  icon: <DropDownMenu />,
                 }}
               />
             </div>

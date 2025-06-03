@@ -1,5 +1,4 @@
 import {
-    Cloud,
     CreditCard,
     Github,
     LifeBuoy,
@@ -29,7 +28,7 @@ import {
 import SignOutButton from "./SIgnOut"
 import RedirectButton from "./RedirectButton"
   
-  export function DropdownMenuDemo() {
+  export function DropDownMenu() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
