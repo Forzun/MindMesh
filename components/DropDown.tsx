@@ -27,6 +27,7 @@ import {
   } from "@/components/ui/dropdown-menu"
 import SignOutButton from "./SIgnOut"
 import RedirectButton from "./RedirectButton"
+import Link from "next/link"
   
   export function DropDownMenu() {
     return (
@@ -46,7 +47,7 @@ import RedirectButton from "./RedirectButton"
           <DropdownMenuGroup>
             <DropdownMenuItem>
               <User />
-              <span>Profile</span>
+              <Link href="/pages/userInfo">Profile</Link>
               <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
             </DropdownMenuItem>
             <DropdownMenuItem>
@@ -69,13 +70,13 @@ import RedirectButton from "./RedirectButton"
             <DropdownMenuSub>
               <DropdownMenuSubTrigger>
                 <UserPlus />
-                <span>Invite users</span>
+                <span>usvite users</span>
               </DropdownMenuSubTrigger>
               <DropdownMenuPortal>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem>
                     <Mail />
-                    <span>Email</span>
+                    <a href="mailto:vbhavesh219@gamil.com"><span>Email</span></a>
                   </DropdownMenuItem>
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
@@ -89,7 +90,7 @@ import RedirectButton from "./RedirectButton"
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <Github />
-            <span>GitHub</span>
+            <a href="https://github.com/forzun"><span>GitHub</span></a>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <LifeBuoy />
