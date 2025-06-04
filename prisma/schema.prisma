@@ -1,7 +1,34 @@
-(İn* \Ú¹i9hßùÂ­<ò|Ô¿}…kç£«¶.È÷Õ0Å"{Ü¼0E
-œ½é‘Š¹sîHø¸à‹¶gÒ~l£­(xÁX0“g!I…Ywª[QP™üÊ‹[ò<e :4“ÉßÒÅd,ŒkI½
-TlYŞÄJ‰Q›"ñÆXæ·n;äL@Òzü˜^È‹x;xæqpÜ†ZÂÉ#,¸o6‘•ÀÛ½Ú¹­½Q[¾êUTÈOTã•¿WÚ¼4ÙFè«/pËåFíÆhAS?°›2Ïæ–)VÈa—¼‘=Änp·DãZÖ1¡Ş% ïÛö<«©‡1`GÑ…æh0ãÑæ„X±®Ä¤
-ÇAÂ4ûÙ*…<t¢%Lû¤ŠWP
-/<ÿ—Ğ$¬Ê<W‡ƒ0éç§àºÃ¬|9¾FŞlê?WÕ¡ÚxY¢×<w¹$’<NŞxëfõÓêÓU‚HiÊŠsYî0ìu;4G~*„2çÉ½hÜdÄCc:³¼¾ŠL|¢á„ó¨ÿ¼ğíº›Èb•¿õ=¬E¶za»m
-®–pÉè½zşyWÅB,´(·nI'w†%ÊªŠ2Í6ÈÍâeK›A›‡M°›Ÿdµ€ã&"ìƒÀYÉT'êrÜ
-‰<cùr5*¼Í¿®YYK™œçºz3âáqam¯o@A†GÔ1ç­±é4Õ=ÉGFIá$™‡‘„@¿•Xá/f&`+Ùní	<Ÿ´Ôƒ(€aı,{ÿllãÍ«ª_¹@äõ>óõ-zùƒÏh÷ê}M’Oúu³y¬ÇeÊÒÃ{Ãäˆêé·£€›00m5#²A\î,át¿uæ]wcpºğ`h€s¡;Ccc‹ÖY;ù’İæº“w±ŸlI®í0TÂÕFÒm¹–è
+generator client {Add commentMore actions
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User { 
+  id        Int @default(autoincrement()) @id
+  name      String
+  username  String @unique 
+  password  String 
+  content  Content[]
+  link     link[]
+  @@map("users")
+}
+
+model Content {
+  id      Int @default(autoincrement()) @id
+  title   String
+  link    String  
+  tag     String[]
+  userId  Int 
+  user    User @relation(fields: [userId], references: [id] , onDelete: Cascade)
+}
+
+model link { 
+  id      Int @default(autoincrement()) @id
+  hash    String @unique
+  userId  Int 
+  user    User @relation(fields: [userId] , references: [id] , onDelete: Cascade)
+}

@@ -15,6 +15,8 @@
                   name:(form.elements.namedItem("name") as HTMLInputElement).value,
                   password:(form.elements.namedItem("password") as HTMLInputElement).value
               }
+
+              console.log(user);
   
               if(user){
               await signIn("credentials", { 

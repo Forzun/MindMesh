@@ -28,6 +28,7 @@ import {
 import SignOutButton from "./SIgnOut"
 import RedirectButton from "./RedirectButton"
 import Link from "next/link"
+import { Session } from "next-auth"
   
   export function DropDownMenu() {
     return (

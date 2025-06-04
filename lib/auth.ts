@@ -29,7 +29,7 @@ export const authOptions: NextAuthOptions = {
                 return { 
                   id:existingUser.id.toString(), 
                   name:existingUser.name, 
-                  username:existingUser.username
+                  username:existingUser.username,
                 }
             }
           
@@ -60,11 +60,11 @@ export const authOptions: NextAuthOptions = {
             if(user){
                 token.id = user.id; 
             }
-            return token; 
+            return token;
         },
         async session({session , token}){
             if(session.user){ 
-                session.user.id = token.id;    
+                session.user.id = token.id;
             }
             return session;
         }
