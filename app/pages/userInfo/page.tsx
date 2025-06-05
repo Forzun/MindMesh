@@ -1,28 +1,38 @@
-
+import SignOutButton from "@/components/SIgnOut"
 import { Button } from "@/components/ui/button"
 import { authOptions } from "@/lib/auth"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@radix-ui/react-collapsible"
 import { Check, ChevronsUpDown, ContactRound, IdCard, User } from "lucide-react"
 import { getServerSession, Session } from "next-auth"
 import Image from "next/image"
+import { redirect } from "next/navigation"
 
 export default async function UserInfoPage(){ 
     const session = await getServerSession(authOptions);
 
+    if(!session){ 
+        redirect("/pages/signin")
+    }  
+
     return <div className="h-screen w-full bg-neutral-950 ">
         <div className="h-full container mx-auto max-w-6xl">
-            <div className="w-full h-full flex flex-col gap-5 items-center p-10">
-                <div className="md:h-80 h-90 w-full flex md:flex-row flex-col gap-10">
-                    <div className="md:w-96 flex justify-center items-center"> 
+            <div className="w-full h-full flex flex-col gap-5 items-center">
+                <div className="md:h-96 h-90 w-full flex md:flex-row flex-col">
+                    <div className="md:w-96 flex flex-col justify-end items-center"> 
                         <Avatar src="/freepik__adjust__54853.jpeg" alt="Avatar" />
-                    </div>
 
-                    <div className="w-full h-ful flex flex-col justify-center px-20">
+                            <div className="md:h-10 h-40 w-full flex md:gap-10 gap-5 md:flex-row flex-col p-10">
+                                <div className="h-full flex">
+                                    <Button className="w-full" variant="outline" >Share</Button>
+                                </div>
+                                <div className="h-full flex">
+                                    <SignOutButton variant="destructive"  />
+                                </div>
+                         </div>
+                    </div>
+                    <div className="w-full h-full flex flex-col justify-center px-20">
                         <InfoCollaps session={session} />
                     </div>
-                </div>
-                <div className="h-96 w-full ">
-
                 </div>
             </div>
         </div>
@@ -40,7 +50,7 @@ function InfoCollaps({session}: { session: Session | null }){
     
     console.log(session);
 
-    return <Collapsible className="flex full flex-col gap-2">
+    return <Collapsible className="flex w-full h-full justify-center flex-col gap-2">
         <div className="flex items-center justify-between">
             <h1 className="text-md font-semibold flex items-center gap-1 text-neutral-200"> <span><ContactRound className="h-5 text-neutral-300" /></span> User Details</h1>
             <CollapsibleTrigger asChild>

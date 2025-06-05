@@ -100,7 +100,7 @@ import { Session } from "next-auth"
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <LogOut />
-            <span><SignOutButton /></span>
+            <span className="h-8"><SignOutButton variant="ghost" /></span>
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>
         </DropdownMenuContent>

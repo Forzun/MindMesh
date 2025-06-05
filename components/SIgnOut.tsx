@@ -1,9 +1,19 @@
+"use client"
+
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
-export default function SignOutButton(){ 
+import { Button } from "./ui/button";
+import { useRouter } from "next/compat/router";
 
-    return <button onClick={() => {
+interface SignOutButtonProps { 
+    variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined; 
+    ClassName?: string;
+}
+
+export default function SignOutButton({variant, ClassName}: SignOutButtonProps){ 
+
+    return <Button className={ClassName} variant={variant} onClick={() => {
         signOut();
-        redirect("/pages/signin")
-    }}>Sign Out</button>
+        redirect("/pages/signin");
+    }}>Sign Out</Button>
 }
