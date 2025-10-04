@@ -11,33 +11,25 @@ import {
     SelectValue,
   } from "@/components/ui/select"
 import { Button } from "./ui/button";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import axios from "axios";
 import { redirect } from "next/navigation";
 
-interface FormData { 
-    url:string; 
-    options:{
-        value:string;
-        label:string;
-    }[]
-}
-
-export default function NewItem({userId}: {userId: string | undefined}){ 
+export default function NewItem() {
     const [platform , setPlatform] = useState("");
-    const inputData:any[] = [];
+    // const inputData:any[] = [];
 
     async function onSubmit(event: FormEvent<HTMLFormElement>){ 
         console.log("Working")
         event.preventDefault();
 
         const form = event.target as HTMLFormElement; 
-        let formData = new FormData(form);
+        const formData = new FormData(form);
         formData.append("platform", platform);
         const data = Object.fromEntries(formData);
 
-        inputData.push(data); 
-        console.log(data)
+        // inputData.push(data); 
+        // console.log(data)
     
         const response = await axios.post("http://localhost:3000/api/content", { 
             title:data.title, 

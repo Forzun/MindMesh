@@ -3,7 +3,6 @@
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 import { Button } from "./ui/button";
-import { useRouter } from "next/compat/router";
 
 interface SignOutButtonProps { 
     variant?: "link" | "default" | "destructive" | "outline" | "secondary" | "ghost" | null | undefined; 

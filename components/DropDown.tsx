@@ -28,14 +28,14 @@ import {
 import SignOutButton from "./SIgnOut"
 import RedirectButton from "./RedirectButton"
 import Link from "next/link"
-import { Session } from "next-auth"
+import Image from "next/image"
   
   export function DropDownMenu() {
     return (
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <img
-            src="freepik__adjust__54853.jpeg"
+          <Image
+            src="/freepik__adjust__54853.jpeg"
             className="h-7 w-7 shrink-0 rounded-full"
             width={50}
             height={50}

@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
             password: { label: "Password", type: "password" } 
           },
           
-          async authorize(credentials, req) {
+          async authorize(credentials) {
             // if (!credentials?.username || !credentials?.password || !credentials?.name) return null;
 
             const existingUser = await prisma.user.findUnique({ 
@@ -35,9 +35,9 @@ export const authOptions: NextAuthOptions = {
           
             const user = await prisma.user.create({ 
               data:{ 
-                  name: credentials?.name!, 
-                  username: credentials?.username!, 
-                  password: credentials?.password!
+                  name: credentials?.name ?? "",
+                  username: credentials?.username ?? "", 
+                  password: credentials?.password ?? " "
               }
             })
             

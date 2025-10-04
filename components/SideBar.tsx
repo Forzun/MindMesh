@@ -3,12 +3,17 @@
 import { cn } from "@/lib/utils";
 import { Sidebar, SidebarBody, SidebarLink } from "./ui/sidebar";
 import { Brain } from "lucide-react";
-import { IconBrandYoutube, IconBrandTwitter, IconBrandSpotify } from "@tabler/icons-react";
+import {
+  IconBrandYoutube,
+  IconBrandTwitter,
+  IconBrandSpotify,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Session } from "next-auth";
 import axios from "axios";
 import Card from "./Card";
 import { DropDownMenu } from "./DropDown";
+import Link from "next/link";
 
 export default function SideBar({ session }: { session: Session | null }) {
   const Links = [
@@ -43,7 +48,9 @@ export default function SideBar({ session }: { session: Session | null }) {
             <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-hidden">
               <div className="flex items-center gap-2">
                 <Brain className="w-7 h-9" />
-                <a href="/" className="text-xl font-semibold">MindMesh</a>
+                <Link href="/" className="text-xl font-semibold">
+                  MindMesh
+                </Link>
               </div>
               <div className="mt-8 flex flex-col gap-2">
                 {Links.map((link, index) => (
@@ -71,24 +78,26 @@ export default function SideBar({ session }: { session: Session | null }) {
 }
 
 const Dashboard = () => {
-  const [data , setData] = useState([]);
+  const [data, setData] = useState([]);
 
-  useEffect(() => { 
-      axios.get("http://localhost:3000/api/getcontent")
-      .then((res) => { 
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/getcontent")
+      .then((res) => {
         setData(res.data.data);
-      }).catch(error => { 
-        console.log(error)
       })
-  },[])
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div className="flex flex-1 h-full justify-center">
       <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
-        {data.map((item , index) => { 
-          return <Card data={item} key={index} index={index} />
+        {data.map((item, index) => {
+          return <Card data={item} key={index} />;
         })}
-     </div>
+      </div>
     </div>
-  );        
+  );
 };

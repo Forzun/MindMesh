@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from "next/server";
 
 const Client = new PrismaClient();
 
-export async function GET(req: NextRequest , {params}: {params: {id:string}}){ 
+export async function GET(req: NextRequest , { params }: { params: Promise<{ id: string }> }){ 
     try{ 
-        const ShareId = params.id;
-        console.log(ShareId)
+        const { id: ShareId } = await params;
+        console.log(ShareId);
 
         if(ShareId){ 
             const link = await Client.link.findUnique({ 
