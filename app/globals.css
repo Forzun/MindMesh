@@ -121,3 +121,36 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+.container-wrapper { 
+  @apply max-w-7xl mx-auto min-h-screen
+}
+
+::selection {
+  background-color: theme('colors.gray.600'); /* Example: using a Tailwind color from your theme */
+  color: theme('colors.white'); /* Example: using a Tailwind color from your theme */
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+
+@theme inline {
+  --animate-shiny-text: shiny-text 8s infinite;
+
+  @keyframes shiny-text {
+    0%,
+    90%,
+    100% {
+      background-position: calc(-100% - var(--shiny-width)) 0;
+    }
+    30%,
+    60% {
+      background-position: calc(100% + var(--shiny-width)) 0;
+    }
+  }
+}
