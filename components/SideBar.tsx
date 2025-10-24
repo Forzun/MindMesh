@@ -70,7 +70,7 @@ export default function SideBar({ session }: { session: Session | null }) {
           </SidebarBody>
         </Sidebar>
       </div>
-      <div className="sticky top-0  overflow-auto overflow-x-hidden flex-1">
+      <div className="sticky top-0 overflow-auto overflow-x-hidden flex-1">
         <Dashboard />
       </div>
     </div>

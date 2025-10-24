@@ -134,6 +134,10 @@
   ); /* Example: using a Tailwind color from your theme */
 }
 
+.sidebar-container { 
+  @apply px-3 py-1
+}
+
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;

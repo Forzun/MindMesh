@@ -11,8 +11,6 @@ export async function GET(req: NextRequest){
             secret:process.env.AUTH_SECRET
         })
 
-        console.log(token?.id);
-
         if(!token || !token.id){
             return NextResponse.json({ 
                 message:"Unauthorized"

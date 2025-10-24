@@ -80,7 +80,7 @@ export default function Card({ data }: { data: CardProps }) {
               allowFullScreen
             ></iframe>
           )}
-          {data.tag[0] === "twitter" && <Tweet id={data.link} />}
+          {data.tag[0] === "twitter" && <Tweet id={"1981771961928995309"} />}
           {data.tag[0] === "spotify" && (
             <iframe
               className="border-radius:12px"
