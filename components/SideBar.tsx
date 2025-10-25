@@ -93,7 +93,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex flex-1 h-full justify-center">
-      <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
+      <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-10 md:pl-5 pl-12 pt-10 rounded-tl-2xl border border-neutral-200 bg-white dark:border-neutral-700 dark:bg-neutral-900 ">
         {data.map((item, index) => {
           return <Card data={item} key={index} />;
         })}

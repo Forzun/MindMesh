@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
-import { Share2, Trash2 } from "lucide-react";
-import { IconBrandTwitter, IconBrandYoutube } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
 import { Tweet } from "react-tweet";
+import TwitterSvg from "./icons/x-svg";
+import ShareIcon from "./icons/share-icon";
+import DeleteIcon from "./icons/delete-icon";
+import YoutubeIcon from "./icons/activitys-icons";
 
 interface CardProps {
   id: number;
@@ -14,6 +16,7 @@ interface CardProps {
 }
 
 export default function Card({ data }: { data: CardProps }) {
+  const [hidden, setHidden] = useState(true);
   console.log(data);
 
   useEffect(() => {
@@ -34,41 +37,44 @@ export default function Card({ data }: { data: CardProps }) {
     return `https://www.youtube.com/embed/${videoId}`;
   };
 
+  function truncate(str: string, n: number) {
+    return str.length > n ? str.substring(0, n - 1) + "..." : str;
+  }
+
   return (
-    <div className="bg-white dark:bg-neutral-900  rounded-xl max-w-80 w-full h-fit border px-3 py-3 hover:scale-105 transition-normal duration-200 delay-75 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
+    <div
+      onClick={() => setHidden(!hidden)}
+      className="bg-white dark:bg-neutral-900 rounded-xl min-w-80 w-full min-h-7 h-fit border-1 border-dashed border-inset px-3 py-3 transition-normal duration-200 delay-75 hover:inset-shadow-sm hover:inset-shadow-neutral-800 transition-all ease-in"
+    >
       <div className="flex flex-col w-full h-full gap-2">
         <div className="flex items-center justify-between">
           <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 tracking-tight dark:text-neutral-300 text-base">
             <span>
-              {data.tag[0] === "youtube" ? (
-                <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 " />
-              ) : (
-                <IconBrandTwitter className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 " />
-              )}
-              {/* <IconBrandYoutube className="hover:text-neutral-400 transition-all duration-200 delay-75 hover:scale-105 "/> */}
+              {data.tag[0] === "youtube" ? <YoutubeIcon /> : <TwitterSvg />}
             </span>
-            <h1 className="hover:text-neutral-400 transition-all duration-200">
-              {data.title}
+            <div className="h-10"></div>
+            <h1 className="hover:text-neutral-400 text-sm transition-all duration-200">
+              {truncate(data.title, 45)}
             </h1>
           </div>
 
-          <div className="flex gap-2 ">
-            <a href={data.link}>
-              <Share2
-                className="hover:text-neutral-400 transition-all duration-150 cursor-pointer hover:scale-110"
-                width={20}
-                height={20}
-              />
+          <div className="flex gap-2 items-center">
+            <a className="flex gap-2 items-center" href={data.link}>
+              {[
+                { id: 1, icon: <ShareIcon /> },
+                { id: 2, icon: <DeleteIcon className="text-neutral-300" /> },
+              ].map((icon, index) => {
+                return <Icon key={index}>{icon.icon}</Icon>;
+              })}
             </a>
-            <Trash2
-              className="hover:text-neutral-400 transition-all duration-150 cursor-pointer hover:scale-110"
-              width={20}
-              height={20}
-            />
           </div>
         </div>
-
-        <div data-theme="light" className="">
+        <div
+          data-theme="light"
+          className={`flex justify-center overflow-hidden transition-all duration-300 ease-in ${
+            hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
+          }`}
+        >
           {data.tag[0] === "youtube" && (
             <iframe
               className="rounded-md w-full"
@@ -80,7 +86,7 @@ export default function Card({ data }: { data: CardProps }) {
               allowFullScreen
             ></iframe>
           )}
-          {data.tag[0] === "twitter" && <Tweet id={"1981771961928995309"} />}
+          {data.tag[0] === "twitter" && <Tweet id={data.link} />}
           {data.tag[0] === "spotify" && (
             <iframe
               className="border-radius:12px"
@@ -93,6 +99,14 @@ export default function Card({ data }: { data: CardProps }) {
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+function Icon({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white">
+      {children}
     </div>
   );
 }
