@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Command, Frame, LifeBuoy, Map, PieChart, Send } from "lucide-react";
 
 import {
@@ -15,7 +14,11 @@ import {
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavSecondary } from "./nav-secondary";
+import { useEffect, useState } from "react";
+import { Session } from "next-auth";
 import { NavUser } from "./nav-user";
+import { getSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const data = {
   user: {
@@ -184,6 +187,20 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    getSession().then((session) => {
+      setSession(session);
+
+      if (session == null) {
+        redirect("/pages/signin");
+      }
+    });
+  }, []);
+
+  console.log(session?.user);
+
   return (
     <Sidebar className="" variant="inset" {...props}>
       <SidebarHeader>
@@ -209,7 +226,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {session?.user && (
+          <NavUser
+            user={{
+              id: session.user.id,
+              name: session.user.name || session.user.username || "User",
+              avatar: session.user.image || undefined,
+            }}
+          />
+        )}
       </SidebarFooter>
     </Sidebar>
   );

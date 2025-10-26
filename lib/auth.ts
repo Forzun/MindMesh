@@ -17,22 +17,23 @@ export const authOptions: NextAuthOptions = {
           },
           
           async authorize(credentials) {
-            // if (!credentials?.username || !credentials?.password || !credentials?.name) return null;
+            // if (!credentials?.username || !credentials?.password || !credentials?.name) return null; 
 
             const existingUser = await prisma.user.findUnique({ 
               where: { 
                 username: credentials?.username
               }
             })
-
             if(existingUser){ 
-                return { 
-                  id:existingUser.id.toString(), 
-                  name:existingUser.name, 
-                  username:existingUser.username,
-                }
+              const returnData = { 
+                id: existingUser.id.toString(), 
+                name: existingUser.name, 
+                email: existingUser.username, // Using username as email
+                username: existingUser.username,
+              };
+              return returnData;
             }
-          
+
             const user = await prisma.user.create({ 
               data:{ 
                   name: credentials?.name ?? "",
@@ -44,7 +45,8 @@ export const authOptions: NextAuthOptions = {
             return { 
               id: user.id.toString(), 
               name:user.name, 
-              username: user.username
+              username: user.username,
+              email:user.username
             }
           }
         })
@@ -56,17 +58,52 @@ export const authOptions: NextAuthOptions = {
         strategy:'jwt'
       }, 
       callbacks: { 
-        async jwt({token , user}){ 
-            if(user){
-                token.id = user.id; 
+        async jwt({token, user, trigger}){ 
+          console.log("🟡 JWT CALLBACK - user:", user);
+          console.log("🟡 JWT CALLBACK - token before:", token);
+          
+          // When user logs in (user object exists)
+          if(user){
+            token.id = user.id; 
+            token.name = user.name;
+            token.email = user.email;
+            token.username = user.username;
+          }
+          
+          // Migrate old tokens that don't have email/username
+          if (!token.email || !token.username) {
+            console.log("⚠️ Migrating old token - fetching user data");
+            const userId = token.id || token.sub;
+            
+            if (userId) {
+              const user = await prisma.user.findUnique({
+                where: { id: parseInt(userId) }
+              });
+              
+              if (user) {
+                token.email = user.username;
+                token.username = user.username;
+                console.log("✅ Token migrated:", token);
+              }
             }
-            return token;
+          }
+          
+          console.log("🟡 JWT CALLBACK - token after:", token);
+          return token;
         },
-        async session({session , token}){
-            if(session.user){ 
-                session.user.id = token.id;
-            }
-            return session;
+        async session({session, token}){
+          console.log("🔴 SESSION CALLBACK - token:", token);
+          console.log("🔴 SESSION CALLBACK - session before:", session);
+          
+          if(session.user){ 
+            session.user.id = token.id as string; 
+            session.user.name = token.name as string;
+            session.user.email = token.email as string;
+            session.user.username = token.username as string;
+          }
+          
+          console.log("🔴 SESSION CALLBACK - session after:", session);
+          return session;
         }
       },
 }

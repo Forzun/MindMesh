@@ -33,7 +33,6 @@ export function NavMain({
     }[];
   }[];
 }) {
-  console.log(items[0].icon);
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>

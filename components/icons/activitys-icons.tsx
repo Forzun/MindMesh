@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 function YoutubeIcon({ className }: { className?: string }) {
   return (
     <svg
-      width="200"
-      height="200"
+      width="30"
+      height="30"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 14 14"
       className={cn(className)}
@@ -20,7 +20,7 @@ function YoutubeIcon({ className }: { className?: string }) {
           fill="#2859c5"
           d="M6.286 9.643c1.4-.738 3.348-1.9 3.348-2.643c0-.744-1.949-1.905-3.348-2.643c-.644-.34-1.395.137-1.395.866v3.554c0 .73.75 1.206 1.395.866"
         />
-      </g>
+      </g> 
     </svg>
   );
 }
