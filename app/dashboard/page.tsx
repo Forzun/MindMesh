@@ -13,39 +13,39 @@ export default function Dashboard() {
   useEffect(() => {
     getSession().then((session) => {
       setSession(session);
-      // console.log(session);
-      if (session == null) {
-        redirect("/pages/signin");
-      }
     });
   }, []);
 
+  if (session == null) {
+    redirect("/signin");
+  }
+
   return (
     <div className="min-h-screen w-full">
-        {/* <Content /> */}
+      <Content />
     </div>
   );
 }
 
-// const Content = () => {
-//   const [data, setData] = useState([]);
+const Content = () => {
+  const [data, setData] = useState([]);
 
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:3000/api/getcontent")
-//       .then((res) => {
-//         setData(res.data.data);
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//   }, []);
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/getcontent")
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-//   return (
-//     <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-10 md:pl-5 pl-12 pt-10 rounded-tl-2xl">
-//       {data.map((item, index) => {
-//         return <Card data={item} key={index} />;
-//       })}
-//     </div>
-//   );
-// };
+  return (
+    <div className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-10 md:pl-5 pl-12 pt-10 rounded-tl-2xl">
+      {data.map((item, index) => {
+        return <Card data={item} key={index} />;
+      })}
+    </div>
+  );
+};

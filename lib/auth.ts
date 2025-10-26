@@ -58,9 +58,7 @@ export const authOptions: NextAuthOptions = {
         strategy:'jwt'
       }, 
       callbacks: { 
-        async jwt({token, user, trigger}){ 
-          console.log("🟡 JWT CALLBACK - user:", user);
-          console.log("🟡 JWT CALLBACK - token before:", token);
+        async jwt({token, user}){ ;
           
           // When user logs in (user object exists)
           if(user){
@@ -72,7 +70,6 @@ export const authOptions: NextAuthOptions = {
           
           // Migrate old tokens that don't have email/username
           if (!token.email || !token.username) {
-            console.log("⚠️ Migrating old token - fetching user data");
             const userId = token.id || token.sub;
             
             if (userId) {
@@ -87,13 +84,9 @@ export const authOptions: NextAuthOptions = {
               }
             }
           }
-          
-          console.log("🟡 JWT CALLBACK - token after:", token);
           return token;
         },
         async session({session, token}){
-          console.log("🔴 SESSION CALLBACK - token:", token);
-          console.log("🔴 SESSION CALLBACK - session before:", session);
           
           if(session.user){ 
             session.user.id = token.id as string; 
@@ -102,7 +95,6 @@ export const authOptions: NextAuthOptions = {
             session.user.username = token.username as string;
           }
           
-          console.log("🔴 SESSION CALLBACK - session after:", session);
           return session;
         }
       },

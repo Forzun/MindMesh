@@ -19,7 +19,7 @@ export default function Heror() {
             <span>
               <LogIn />{" "}
             </span>
-            <Link href="/pages/signin">Sign in</Link>
+            <Link href="/signin">Sign in</Link>
           </Button>
           <Button size="lg" variant="outline">
             {" "}

@@ -19,7 +19,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="container-wrapper flex flex-col items-center">npm install nuqs
+    <div className="container-wrapper flex flex-col items-center">
       <Navbar />
       <Header />
       <LogoCloud />

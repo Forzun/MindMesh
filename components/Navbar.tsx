@@ -24,11 +24,11 @@ export default function Navbar() {
         </div>
         <div className="flex items-center gap-4">
           <AnimatedThemeToggler />
-          <Link href="/pages/signin">
+          <Link href="/signin">
             <Button variant="ghost">Log in</Button>
           </Link>
           <Button size={"lg"} variant="default">
-            <Link href="/pages/signin">Sign up</Link>
+            <Link href="/signin">Sign up</Link>
           </Button>
         </div>
       </div>

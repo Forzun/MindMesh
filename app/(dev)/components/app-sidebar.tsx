@@ -194,12 +194,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       setSession(session);
 
       if (session == null) {
-        redirect("/pages/signin");
+        redirect("/signin");
       }
     });
   }, []);
 
-  console.log(session?.user);
 
   return (
     <Sidebar className="" variant="inset" {...props}>
@@ -226,15 +225,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        {session?.user && (
-          <NavUser
-            user={{
-              id: session.user.id,
-              name: session.user.name || session.user.username || "User",
-              avatar: session.user.image || undefined,
-            }}
-          />
-        )}
+        <NavUser
+          user={{
+            id: session?.user.id || "",
+            name: session?.user.name || undefined,
+            email: session?.user.username || "User@gmail.com",
+            avatar: session?.user.image || undefined,
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );
