@@ -14,7 +14,7 @@ import {
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavSecondary } from "./nav-secondary";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Session } from "next-auth";
 import { NavUser } from "./nav-user";
 import { getSession } from "next-auth/react";
@@ -190,6 +190,7 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [session, setSession] = useState<Session | null>(null);
   const { data: content, loading } = useFetch({ url: "/api/getcontent" });
+  const hasProcessed = useRef<boolean>(false);
 
   useEffect(() => {
     getSession().then((session) => {
@@ -199,30 +200,31 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         redirect("/signin");
       }
     });
-  }, []);
 
-  if (loading === false) {
-    console.log("running inside..");
-    content.forEach((item) => {
-      item.tag?.forEach((tag) => {
-        data.navMain.forEach((navItem) => {
-          if (navItem.title.toLowerCase() === tag.toLowerCase()) {
-            
-            const exists = navItem.items.some(
-              (existingItem) => existingItem.title === item.title
-            );
+    if (!loading && content && !hasProcessed.current) {
+      hasProcessed.current = true;
 
-            if (!exists) {
-              navItem.items.push({
-                title: item.title,
-                url: "#",
-              });
+      console.log("running inside..");
+      content.forEach((item) => {
+        item.tag?.forEach((tag) => {
+          data.navMain.forEach((navItem) => {
+            if (navItem.title.toLowerCase() === tag.toLowerCase()) {
+              const exists = navItem.items.some(
+                (existingItem) => existingItem.title === item.title
+              );
+
+              if (!exists) {
+                navItem.items.push({
+                  title: item.title,
+                  url: "#",
+                });
+              }
             }
-          }
+          });
         });
       });
-    });
-  }
+    }
+  }, [loading, content]);
 
   return (
     <Sidebar className="" variant="inset" {...props}>
