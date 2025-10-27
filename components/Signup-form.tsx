@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { Loader } from "lucide-react";
+import { redirect } from "next/navigation";
 
 interface SignupFormProps {
   name: string;
@@ -49,6 +50,7 @@ export function LoginForm({
         password: formData.password,
         callbackUrl: "/dashboard",
       });
+      redirect("/dashboard");
     } catch (error) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {

@@ -19,6 +19,7 @@ import { Session } from "next-auth";
 import { NavUser } from "./nav-user";
 import { getSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import useFetch from "@/hooks/useFetch";
 
 const data = {
   user: {
@@ -188,6 +189,7 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const [session, setSession] = useState<Session | null>(null);
+  const { data: content, loading } = useFetch({ url: "/api/getcontent" });
 
   useEffect(() => {
     getSession().then((session) => {
@@ -199,6 +201,28 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     });
   }, []);
 
+  if (loading === false) {
+    console.log("running inside..");
+    content.forEach((item) => {
+      item.tag?.forEach((tag) => {
+        data.navMain.forEach((navItem) => {
+          if (navItem.title.toLowerCase() === tag.toLowerCase()) {
+            
+            const exists = navItem.items.some(
+              (existingItem) => existingItem.title === item.title
+            );
+
+            if (!exists) {
+              navItem.items.push({
+                title: item.title,
+                url: "#",
+              });
+            }
+          }
+        });
+      });
+    });
+  }
 
   return (
     <Sidebar className="" variant="inset" {...props}>

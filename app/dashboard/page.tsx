@@ -1,24 +1,19 @@
 "use client";
 
 import { getSession } from "next-auth/react";
-import { Session } from "next-auth";
 import { useEffect, useState } from "react";
 import { redirect } from "next/navigation";
 import axios from "axios";
 import Card from "@/components/Card";
 
 export default function Dashboard() {
-  const [session, setSession] = useState<Session | null>(null);
-
   useEffect(() => {
     getSession().then((session) => {
-      setSession(session);
+      if (session == null) {
+        redirect("/signin");
+      }
     });
   }, []);
-
-  if (session == null) {
-    redirect("/signin");
-  }
 
   return (
     <div className="min-h-screen w-full">
@@ -32,7 +27,7 @@ const Content = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/getcontent")
+      .get("/api/getcontent")
       .then((res) => {
         setData(res.data.data);
       })
