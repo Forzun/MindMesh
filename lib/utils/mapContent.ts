@@ -5,7 +5,7 @@ interface dataProps {
         title: string;
         url: string;
         icon?: JSX.Element;
-        isActive: boolean;
+        isActive?: boolean;
         items: {
             title: string;
             url: string;
@@ -40,7 +40,9 @@ export default function MapContent({content , data} : {content: contenteProps[],
             }
           });
         });
-      });
+      })
+
+      console.log("data went through inside...")
     
       return data;
 }

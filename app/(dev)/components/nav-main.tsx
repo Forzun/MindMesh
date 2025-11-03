@@ -18,9 +18,11 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem,
 } from "@/components/ui/text-sidebar";
+import { Skeleton } from "@/components/ui/skeletion";
 
 export function NavMain({
   items,
+  loading,
 }: {
   items: {
     title: string;
@@ -32,6 +34,7 @@ export function NavMain({
       url: string;
     }[];
   }[];
+  loading: boolean;
 }) {
   return (
     <SidebarGroup>
@@ -60,7 +63,11 @@ export function NavMain({
                         <SidebarMenuSubItem key={subItem.title}>
                           <SidebarMenuSubButton asChild>
                             <a href={subItem.url}>
-                              <span>{subItem.title}</span>
+                              {loading ? (
+                                <Skeleton className="w-full h-7 rounded-md" />
+                              ) : (
+                                <span>{subItem.title}</span>
+                              )}
                             </a>
                           </SidebarMenuSubButton>
                         </SidebarMenuSubItem>

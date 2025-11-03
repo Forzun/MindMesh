@@ -20,6 +20,7 @@ import { NavUser } from "./nav-user";
 import { getSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
+import MapContent from "@/lib/utils/mapContent";
 
 const data = {
   user: {
@@ -204,25 +205,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (!loading && content && !hasProcessed.current) {
       hasProcessed.current = true;
 
-      console.log("running inside..");
-      content.forEach((item) => {
-        item.tag?.forEach((tag) => {
-          data.navMain.forEach((navItem) => {
-            if (navItem.title.toLowerCase() === tag.toLowerCase()) {
-              const exists = navItem.items.some(
-                (existingItem) => existingItem.title === item.title
-              );
-
-              if (!exists) {
-                navItem.items.push({
-                  title: item.title,
-                  url: "#",
-                });
-              }
-            }
-          });
-        });
-      });
+      MapContent({ content, data: { navMain: data.navMain } });
+      console.log("should run only once!..");
     }
   }, [loading, content]);
 
@@ -246,7 +230,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain loading={loading} items={data.navMain} />
         <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
