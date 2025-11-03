@@ -3,7 +3,8 @@
 import DeleteIcon from "@/components/icons/delete-icon";
 import ShareIcon from "@/components/icons/share-icon";
 import TwitterSvg from "@/components/icons/x-svg";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Script from "next/script";
 
 export default function Test() {
   return (
@@ -15,17 +16,6 @@ export default function Test() {
 
 const Dashboard = () => {
   const [hidden, setHidden] = useState(true);
-
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    document.head.appendChild(script);
-
-    return () => {
-      document.head.removeChild(script);
-    };
-  }, []);
 
   function truncate(str: string, n: number) {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
@@ -66,22 +56,9 @@ const Dashboard = () => {
                 hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
               }`}
             >
-              <blockquote
-                className="twitter-tweet "
-                data-theme="dark"
-                style={{ transform: "scale(0.75)", transformOrigin: "center" }}
-              >
-                <p lang="en" dir="ltr">
-                  building on solana{" "}
-                  <a href="https://t.co/BQyv7QRK8c">
-                    pic.twitter.com/BQyv7QRK8c
-                  </a>
-                </p>
-                &mdash; Sarthak (@sarthaktwtt){" "}
-                <a href="https://twitter.com/sarthaktwtt/status/1981774541719580710?ref_src=twsrc%5Etfw">
-                  October 24, 2025
-                </a>
-              </blockquote>
+
+              <TwitterEmbed url="https://twitter.com/sarthaktwtt/status/1981774541719580710?ref_src=twsrc%5Etfw" />
+              {/* reddit */}
             </div>
           </div>
         </div>
@@ -94,6 +71,77 @@ function Icon({ children }: { children: React.ReactNode }) {
   return (
     <div className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white">
       {children}
+    </div>
+  );
+}
+
+function RedditEmbed({
+  url,
+  theme = "dark",
+  height = 500,
+}: {
+  url: string;
+  theme?: "dark" | "light";
+  height?: number;
+}) {
+  return (
+    <>
+      <blockquote
+        className="reddit-embed-bq"
+        data-embed-theme={theme}
+        style={{ height: `${height}px` }}
+      >
+        <a href={url}>{url}</a>
+      </blockquote>
+      <Script
+        src="https://embed.reddit.com/widgets.js"
+        strategy="afterInteractive"
+        charSet="UTF-8"
+      />
+    </>
+  );
+}
+
+
+function TwitterEmbed({
+  url,
+  theme = "dark",
+  height = 500,
+}: {
+  url: string;
+  theme?: "dark" | "light";
+  height?: number;
+}) {
+  return (
+    <>
+      <blockquote
+        className="twitter-tweet"
+        data-embed-theme={theme}
+        data-lang="en"
+        data-theme="dark"
+        style={{ height: `${height}px` }}
+      >
+        <a href={url}>{url}</a>
+      </blockquote>
+      <Script
+        src="https://platform.twitter.com/widgets.js"
+        strategy="afterInteractive"
+        charSet="UTF-8"
+      />
+    </>
+  );
+}
+
+function SpotifyEmbed({}) {
+  return (
+    <div>
+      <iframe
+        src="https://open.spotify.com/embed/album/2ODvWsOgouMbaA5xf0RkJe?utm_source=oembed"
+        allow="clipboard-write *; encrypted-media *; fullscreen *; picture-in-picture *;"
+        className="rounded-xl"
+        width="100%"
+        height="352"
+      ></iframe>
     </div>
   );
 }

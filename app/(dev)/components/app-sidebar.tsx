@@ -205,7 +205,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (!loading && content && !hasProcessed.current) {
       hasProcessed.current = true;
 
-      MapContent({ content, data: { navMain: data.navMain } });
+      // MapContent({ content, data: { navMain: data.navMain } });
       console.log("should run only once!..");
     }
   }, [loading, content]);
