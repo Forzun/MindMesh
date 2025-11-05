@@ -4,7 +4,7 @@ import DeleteIcon from "@/components/icons/delete-icon";
 import ShareIcon from "@/components/icons/share-icon";
 import TwitterSvg from "@/components/icons/x-svg";
 import { useState } from "react";
-import Script from "next/script";
+import { RedditEmbed } from "@/components/product";
 
 export default function Test() {
   return (
@@ -56,8 +56,7 @@ const Dashboard = () => {
                 hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
               }`}
             >
-
-              <TwitterEmbed url="https://twitter.com/sarthaktwtt/status/1981774541719580710?ref_src=twsrc%5Etfw" />
+              <RedditEmbed url="https://www.reddit.com/r/KanojoOkarishimasu/comments/1okimi9/hear_me_out_black_hair_this_hairstyle/" />
               {/* reddit */}
             </div>
           </div>
@@ -71,77 +70,6 @@ function Icon({ children }: { children: React.ReactNode }) {
   return (
     <div className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white">
       {children}
-    </div>
-  );
-}
-
-function RedditEmbed({
-  url,
-  theme = "dark",
-  height = 500,
-}: {
-  url: string;
-  theme?: "dark" | "light";
-  height?: number;
-}) {
-  return (
-    <>
-      <blockquote
-        className="reddit-embed-bq"
-        data-embed-theme={theme}
-        style={{ height: `${height}px` }}
-      >
-        <a href={url}>{url}</a>
-      </blockquote>
-      <Script
-        src="https://embed.reddit.com/widgets.js"
-        strategy="afterInteractive"
-        charSet="UTF-8"
-      />
-    </>
-  );
-}
-
-
-function TwitterEmbed({
-  url,
-  theme = "dark",
-  height = 500,
-}: {
-  url: string;
-  theme?: "dark" | "light";
-  height?: number;
-}) {
-  return (
-    <>
-      <blockquote
-        className="twitter-tweet"
-        data-embed-theme={theme}
-        data-lang="en"
-        data-theme="dark"
-        style={{ height: `${height}px` }}
-      >
-        <a href={url}>{url}</a>
-      </blockquote>
-      <Script
-        src="https://platform.twitter.com/widgets.js"
-        strategy="afterInteractive"
-        charSet="UTF-8"
-      />
-    </>
-  );
-}
-
-function SpotifyEmbed({}) {
-  return (
-    <div>
-      <iframe
-        src="https://open.spotify.com/embed/album/2ODvWsOgouMbaA5xf0RkJe?utm_source=oembed"
-        allow="clipboard-write *; encrypted-media *; fullscreen *; picture-in-picture *;"
-        className="rounded-xl"
-        width="100%"
-        height="352"
-      ></iframe>
     </div>
   );
 }

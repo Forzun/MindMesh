@@ -1,6 +1,6 @@
 "use client";
 
-import { Command, Frame, LifeBuoy, Map, PieChart, Send } from "lucide-react";
+import {LifeBuoy, Send } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,6 +20,7 @@ import { NavUser } from "./nav-user";
 import { getSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
+import Image from "next/image";
 import MapContent from "@/lib/utils/mapContent";
 
 const data = {
@@ -169,23 +170,7 @@ const data = {
       icon: Send,
     },
   ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  projects: [],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -205,7 +190,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (!loading && content && !hasProcessed.current) {
       hasProcessed.current = true;
 
-      // MapContent({ content, data: { navMain: data.navMain } });
+      MapContent({ content, data: { navMain: data.navMain } });
       console.log("should run only once!..");
     }
   }, [loading, content]);
@@ -217,12 +202,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
               <a href="#">
-                <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
-                  <Command className="size-4" />
+                <div className=" text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+                  <Image
+                    className="dark:invert"
+                    src="https://files.svgcdn.io/solar/archive-up-minimlistic-bold-duotone.svg"
+                    alt={"Logo"}
+                    height="30"
+                    width="30"
+                  />
                 </div>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">Acme Inc</span>
-                  <span className="truncate text-xs">Enterprise</span>
+                  <span className="truncate font-medium">MindMesh</span>
+                  <span className="truncate text-xs">v.0.1</span>
                 </div>
               </a>
             </SidebarMenuButton>
@@ -238,7 +229,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser
           user={{
             id: session?.user.id || "",
-            name: session?.user.name || undefined,
+            name: session?.user.name || undefined || "User",
             email: session?.user.username || "User@gmail.com",
             avatar: session?.user.image || undefined,
           }}
