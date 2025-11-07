@@ -26,7 +26,7 @@ export default function MapContent({content , data} : {content: contenteProps[],
     content.forEach((item) => {
         item.tag?.forEach((tag) => {
           data.navMain.forEach((navItem) => {
-            if (navItem.title.toLowerCase() === tag.toLowerCase()) {
+            if (navItem.title.toLowerCase() === tag.toLowerCase()) {dd
               const exists = navItem.items.some(
                 (existingItem) => existingItem.title === item.title
               );

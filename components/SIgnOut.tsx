@@ -2,6 +2,7 @@
 
 import { signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { Button } from "./ui/button";
 
 interface SignOutButtonProps {
   variant?:
@@ -16,7 +17,21 @@ interface SignOutButtonProps {
   ClassName?: string;
 }
 
-export default function SignOutButton({ ClassName }: SignOutButtonProps) {
+function SignOutButton({ ClassName }: SignOutButtonProps) {
+  return (
+    <Button
+      variant={"destructive"}
+      className={ClassName}
+      onClick={() => {
+        signOut();
+        redirect("signin");
+      }}
+    >
+      Sign Out
+    </Button>
+  );
+}
+function SignOutButtonClassic({ ClassName }: SignOutButtonProps) {
   return (
     <button
       className={ClassName}
@@ -29,3 +44,8 @@ export default function SignOutButton({ ClassName }: SignOutButtonProps) {
     </button>
   );
 }
+
+export { SignOutButton, SignOutButtonClassic };
+
+
+

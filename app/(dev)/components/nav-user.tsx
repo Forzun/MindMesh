@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/text-sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
-import SignOutButton from "@/components/SIgnOut";
+import { SignOutButtonClassic } from "@/components/SIgnOut";
 
 export function NavUser({
   user,
@@ -148,7 +148,7 @@ export function NavUser({
                     strokeLinejoin="round"
                   ></path>
                 </svg>
-                <Link href="/pages/userInfo" >Account</Link>
+                <Link href="/userInfo" >Account</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />
@@ -174,7 +174,7 @@ export function NavUser({
                     strokeWidth="2"
                   ></path>
                 </svg>
-                settings
+                <Link href="/dashboard/setting" >settings</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <svg
@@ -239,7 +239,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              <SignOutButton ClassName="text-sm cursor-pointer" variant={"ghost"} />
+              <SignOutButtonClassic ClassName="text-sm cursor-pointer" variant={"ghost"} />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

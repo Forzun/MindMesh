@@ -125,6 +125,10 @@
   @apply max-w-7xl mx-auto min-h-screen;
 }
 
+.setting-container { 
+  @apply max-w-7xl mx-auto min-h-screen
+}
+
 ::selection {
   background-color: theme(
     "colors.gray.600"
