@@ -5,12 +5,12 @@ import TwitterSvg from "./icons/x-svg";
 import ShareIcon from "./icons/share-icon";
 import DeleteIcon from "./icons/delete-icon";
 import { RedditIcon, SpotifyIcon, YoutubeIcon } from "./icons/activitys-icons";
-import { RedditEmbed, SpotifyEmbed, TwitterEmbed, YoutubeEmbed } from "./product";
+import { EmbedType, Renderer } from "./embeds";
 
 interface CardProps {
   id: number;
   link: string;
-  tag: string[];
+  tag: EmbedType[];
   title: string;
   userId: number;
 }
@@ -58,10 +58,7 @@ export default function Card({ data }: { data: CardProps }) {
             hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
           }`}
         >
-          {data.tag[0] === "youtube" && <YoutubeEmbed url={data.link} />}
-          {data.tag[0] === "reddit" && <RedditEmbed url={data.link} />}
-          {data.tag[0] === "spotify" && <SpotifyEmbed url={data.link} />}
-          {data.tag[0] === "twitter" && <TwitterEmbed url={data.link} />}
+          <Renderer tag={data.tag[0]} url={data.link} />
         </div>
       </div>
     </div>

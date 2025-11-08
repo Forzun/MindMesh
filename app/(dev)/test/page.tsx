@@ -1,10 +1,11 @@
 "use client";
 
+import { YoutubeEmbed } from "@/components/embeds";
 import DeleteIcon from "@/components/icons/delete-icon";
 import ShareIcon from "@/components/icons/share-icon";
 import TwitterSvg from "@/components/icons/x-svg";
 import { useState } from "react";
-import { RedditEmbed } from "@/components/product";
+
 
 export default function Test() {
   return (
@@ -56,7 +57,9 @@ const Dashboard = () => {
                 hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
               }`}
             >
-              <RedditEmbed url="https://www.reddit.com/r/KanojoOkarishimasu/comments/1okimi9/hear_me_out_black_hair_this_hairstyle/" />
+              {/* <TwitterEmbed url="https://x.com/krishdotdev/status/1987069483211759917" /> */}
+              <YoutubeEmbed url="https://www.youtube.com/watch?v=okafXM31xGk&t=1947s" />
+
             </div>
           </div>
         </div>

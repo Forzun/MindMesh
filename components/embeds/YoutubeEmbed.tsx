@@ -1,11 +1,14 @@
-"use client"
+"use client";
+
+import { getYouTubeId } from "@/lib/utils/extractSpotifyId";
+
 export default function YoutubeEmbed({ url }: { url: string }) {
-  const video = url.split("v=")[0]?.split("&")[0];
+  const id = getYouTubeId(url);
 
   return (
     <iframe
       className="rounded-md w-full"
-      src={video}
+      src={`https://www.youtube.com/embed/${id}`}
       title="YouTube video player"
       frameBorder="0"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

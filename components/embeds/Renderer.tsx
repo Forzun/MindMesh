@@ -17,7 +17,9 @@ type Props = EmbdedProps & { tag: EmbedType };
 export default function Renderer({ url, tag, ...rest }: Props) {
   const Component = MAP[tag];
 
-  if (!Component) return null;
+  if (!Component) { 
+    return <p className="text-red-500">Invalid Embed Type</p>;
+  }
 
   return <Component url={url} {...rest} />;
 }

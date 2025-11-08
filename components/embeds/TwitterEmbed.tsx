@@ -1,30 +1,20 @@
-import Script from "next/script";
+import { Tweet } from "react-tweet";
 
 export default function TwitterEmbed({
-    url,
-    theme = "dark",
-    height = 500,
-  }: {
-    url: string;
-    theme?: "dark" | "light";
-    height?: number;
-  }) {
-    return (
-      <>
-        <blockquote
-          className="twitter-tweet"
-          data-embed-theme={theme}
-          data-lang="en"
-          data-theme="dark"
-          style={{ height: `${height}px` }}
-        >
-          <a href={url}>{url}</a>
-        </blockquote>
-        <Script
-          src="https://platform.twitter.com/widgets.js"
-          strategy="afterInteractive"
-          charSet="UTF-8"
-        />
-      </>
-    );
-  }
+  url,
+}: {
+  url: string;
+  theme?: "dark" | "light";
+  height?: number;
+}) {
+  const match = url.match(/status\/(\d+)/);
+  const id = match ? match[1] : null;
+
+  if (!id) return <p className="text-red-500">Invalid Twitter URL</p>;
+
+  return (
+    <>
+      <Tweet id={id} />
+    </>
+  );
+}
