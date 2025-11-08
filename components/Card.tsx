@@ -6,6 +6,9 @@ import ShareIcon from "./icons/share-icon";
 import DeleteIcon from "./icons/delete-icon";
 import { RedditIcon, SpotifyIcon, YoutubeIcon } from "./icons/activitys-icons";
 import { EmbedType, Renderer } from "./embeds";
+import axios from "axios";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
 
 interface CardProps {
   id: number;
@@ -20,6 +23,25 @@ export default function Card({ data }: { data: CardProps }) {
 
   function truncate(str: string, n: number) {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
+  }
+
+  async function handleDelete() {
+    try {
+      const respnse = await axios.post("/api/deleteContent", {
+        data: {
+          id: data.id,
+        },
+      });
+      if (!respnse) {
+        toast.error("Something went wrong");
+        return;
+      }
+
+      toast.success("Content deleted successfully");
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -42,21 +64,22 @@ export default function Card({ data }: { data: CardProps }) {
           </div>
 
           <div className="flex gap-2 items-center">
-            <a className="flex gap-2 items-center" href={data.link}>
-              {[
-                { id: 1, icon: <ShareIcon /> },
-                { id: 2, icon: <DeleteIcon className="text-neutral-300" /> },
-              ].map((icon, index) => {
-                return <Icon key={index}>{icon.icon}</Icon>;
-              })}
-            </a>
+            {[
+              { id: 1, icon: <ShareIcon /> },
+              { id: 2, icon: <DeleteIcon className="text-neutral-300" /> },
+            ].map((icon, index) => {
+              return (
+                <Icon onClick={handleDelete} key={index}>
+                  {icon.icon}
+                </Icon>
+              );
+            })}
           </div>
         </div>
         <div
           data-theme="light"
           className={`flex justify-center overflow-hidden transition-all duration-300 ease-in ${
             hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
-
           }`}
         >
           <Renderer tag={data.tag[0]} url={data.link} />
@@ -66,10 +89,20 @@ export default function Card({ data }: { data: CardProps }) {
   );
 }
 
-function Icon({ children }: { children: React.ReactNode }) {
+function Icon({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}) {
   return (
-    <div className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white">
+    <Button
+      disabled={!onclick ? false : true}
+      onClick={onClick}
+      className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white"
+    >
       {children}
-    </div>
+    </Button>
   );
 }
