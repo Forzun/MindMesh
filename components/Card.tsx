@@ -56,6 +56,7 @@ export default function Card({ data }: { data: CardProps }) {
           data-theme="light"
           className={`flex justify-center overflow-hidden transition-all duration-300 ease-in ${
             hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
+
           }`}
         >
           <Renderer tag={data.tag[0]} url={data.link} />
