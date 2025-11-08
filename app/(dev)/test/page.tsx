@@ -57,7 +57,6 @@ const Dashboard = () => {
               }`}
             >
               <RedditEmbed url="https://www.reddit.com/r/KanojoOkarishimasu/comments/1okimi9/hear_me_out_black_hair_this_hairstyle/" />
-              {/* reddit */}
             </div>
           </div>
         </div>

@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Tweet } from "react-tweet";
+import { useState } from "react";
 import TwitterSvg from "./icons/x-svg";
 import ShareIcon from "./icons/share-icon";
 import DeleteIcon from "./icons/delete-icon";
-import YoutubeIcon from "./icons/activitys-icons";
+import { RedditIcon, SpotifyIcon, YoutubeIcon } from "./icons/activitys-icons";
+import { RedditEmbed, SpotifyEmbed, TwitterEmbed, YoutubeEmbed } from "./product";
 
 interface CardProps {
   id: number;
@@ -17,25 +17,6 @@ interface CardProps {
 
 export default function Card({ data }: { data: CardProps }) {
   const [hidden, setHidden] = useState(true);
-  console.log(data);
-
-  useEffect(() => {
-    // Load Twitter widget script
-    const script = document.createElement("script");
-    script.src = "https://platform.twitter.com/widgets.js";
-    script.async = true;
-    document.body.appendChild(script);
-
-    return () => {
-      // Clean up the script when the component unmounts
-      document.body.removeChild(script);
-    };
-  }, []);
-
-  const getEnbedUrl = (url: string) => {
-    const videoId = url.split("v=")[1]?.split("&")[0];
-    return `https://www.youtube.com/embed/${videoId}`;
-  };
 
   function truncate(str: string, n: number) {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
@@ -51,6 +32,8 @@ export default function Card({ data }: { data: CardProps }) {
           <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 tracking-tight dark:text-neutral-300 text-base">
             <span>
               {data.tag[0] === "youtube" ? <YoutubeIcon /> : <TwitterSvg />}
+              {data.tag[0] === "spotify" && <SpotifyIcon />}
+              {data.tag[0] === "reddit" && <RedditIcon />}
             </span>
             <div className="h-10"></div>
             <h1 className="hover:text-neutral-400 text-sm transition-all duration-200">
@@ -75,28 +58,10 @@ export default function Card({ data }: { data: CardProps }) {
             hidden ? "max-h-0 opacity-0" : "max-h-screen opacity-100"
           }`}
         >
-          {data.tag[0] === "youtube" && (
-            <iframe
-              className="rounded-md w-full"
-              src={getEnbedUrl(data.link)}
-              title="YouTube video player"
-              frameBorder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerPolicy="strict-origin-when-cross-origin"
-              allowFullScreen
-            ></iframe>
-          )}
-          {data.tag[0] === "twitter" && <Tweet id={data.link} />}
-          {data.tag[0] === "spotify" && (
-            <iframe
-              className="border-radius:12px"
-              src={data.link}
-              width="100%"
-              height="352"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"
-            ></iframe>
-          )}
+          {data.tag[0] === "youtube" && <YoutubeEmbed url={data.link} />}
+          {data.tag[0] === "reddit" && <RedditEmbed url={data.link} />}
+          {data.tag[0] === "spotify" && <SpotifyEmbed url={data.link} />}
+          {data.tag[0] === "twitter" && <TwitterEmbed url={data.link} />}
         </div>
       </div>
     </div>

@@ -69,6 +69,8 @@ export default function NewItem() {
                                 <SelectContent position="popper">
                                     <SelectItem value="youtube" >Youtube</SelectItem>
                                     <SelectItem value="twitter">Twitter</SelectItem>
+                                    <SelectItem value="spotify">Spotify</SelectItem>
+                                    <SelectItem value="tiktok">reddit</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>

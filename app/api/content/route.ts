@@ -14,10 +14,10 @@ export async function POST(req: NextRequest) {
     })
 
     if(!token){ 
-      return NextResponse.json({error:"something went wrong"})
+    return NextResponse.json({error:"something went wrong"})
     }
 
-    const content  = await Client.content.create({ 
+    const content = await Client.content.create({ 
         data: {
           title: body.title,
           link: body.link, 
