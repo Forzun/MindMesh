@@ -31,6 +31,11 @@ export default function MapContent({content , data} : {content: contenteProps[],
                 (existingItem) => existingItem.title === item.title
               );
 
+              const emptyTitleIndex = navItem.items.findIndex(item => item.title === "");
+              if (emptyTitleIndex !== -1) {
+                navItem.items.splice(emptyTitleIndex, 1);
+              }
+
               if (!exists) {
                 navItem.items.push({
                   title: item.title,
@@ -41,8 +46,6 @@ export default function MapContent({content , data} : {content: contenteProps[],
           });
         });
       })
-
-      console.log("data went through inside...")
     
       return data;
 }

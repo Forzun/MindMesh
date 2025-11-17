@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  ChevronsUpDown,
-  CreditCard,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { ChevronsUpDown, CreditCard, LogOut, Sparkles } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -32,8 +27,8 @@ export function NavUser({
 }: {
   user: {
     id: string;
-    name: string | undefined ;
-    email: string;
+    name: string | undefined;
+    email: string | undefined;
     avatar?: string;
   };
 }) {
@@ -86,7 +81,10 @@ export function NavUser({
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">{user?.name && user.name[0] + user.name[user.name.length - 1]}</AvatarFallback>
+                  <AvatarFallback className="rounded-lg">
+                    {user?.name &&
+                      user.name[0] + user.name[user.name.length - 1]}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
@@ -148,7 +146,7 @@ export function NavUser({
                     strokeLinejoin="round"
                   ></path>
                 </svg>
-                <Link href="/userInfo" >Account</Link>
+                <Link href="/userInfo">Account</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />
@@ -174,7 +172,7 @@ export function NavUser({
                     strokeWidth="2"
                   ></path>
                 </svg>
-                <Link href="/dashboard/setting" >settings</Link>
+                <Link href="/dashboard/setting">settings</Link>
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <svg
@@ -239,7 +237,10 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              <SignOutButtonClassic ClassName="text-sm cursor-pointer" variant={"ghost"} />
+              <SignOutButtonClassic
+                ClassName="text-sm cursor-pointer"
+                variant={"ghost"}
+              />
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

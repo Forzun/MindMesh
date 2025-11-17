@@ -6,9 +6,10 @@ import ShareIcon from "./icons/share-icon";
 import DeleteIcon from "./icons/delete-icon";
 import { RedditIcon, SpotifyIcon, YoutubeIcon } from "./icons/activitys-icons";
 import { EmbedType, Renderer } from "./embeds";
-import axios from "axios";
 import { toast } from "sonner";
 import { Button } from "./ui/button";
+import useDeleteContent from "@/hooks/useDeleteContent";
+import { LoaderCircle } from "lucide-react";
 
 interface CardProps {
   id: number;
@@ -20,29 +21,51 @@ interface CardProps {
 
 export default function Card({ data }: { data: CardProps }) {
   const [hidden, setHidden] = useState(true);
+  const [loadingByAction, setLoadingByAction] = useState<
+    Record<string, boolean>
+  >({
+    share: false,
+    delete: false,
+  });
+  const { deleteContent, error } = useDeleteContent({
+    onSuccess: () => {
+      toast.success("Content deleted successfully");
+      window.location.reload();
+    },
+    onError: () => {
+      toast.error(error.message);
+    },
+  });
 
   function truncate(str: string, n: number) {
     return str.length > n ? str.substring(0, n - 1) + "..." : str;
   }
 
-  async function handleDelete() {
+  const handleDelete = async () => {
     try {
-      const respnse = await axios.post("/api/deleteContent", {
-        data: {
-          id: data.id,
-        },
-      });
-      if (!respnse) {
-        toast.error("Something went wrong");
-        return;
-      }
-
-      toast.success("Content deleted successfully");
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
+      setLoadingByAction((s) => ({ ...s, delete: true }));
+      await deleteContent(data.id);
+    } finally {
+      setLoadingByAction((s) => ({ ...s, delete: false }));
     }
-  }
+  };
+
+  const handleShare = async () => {
+    try {
+      setLoadingByAction((s) => ({ ...s, share: true }));
+    } finally {
+      setLoadingByAction((s) => ({ ...s, share: false }));
+    }
+  };
+
+  const action = [
+    { id: 1, icon: <ShareIcon />, onclick: handleShare },
+    {
+      id: 2,
+      icon: <DeleteIcon className="text-neutral-300" />,
+      onclick: handleDelete,
+    },
+  ];
 
   return (
     <div
@@ -64,16 +87,15 @@ export default function Card({ data }: { data: CardProps }) {
           </div>
 
           <div className="flex gap-2 items-center">
-            {[
-              { id: 1, icon: <ShareIcon /> },
-              { id: 2, icon: <DeleteIcon className="text-neutral-300" /> },
-            ].map((icon, index) => {
-              return (
-                <Icon onClick={handleDelete} key={index}>
-                  {icon.icon}
-                </Icon>
-              );
-            })}
+            {action.map((action) => (
+              <Icon
+                key={action.id}
+                loading={loadingByAction[action.id] === true}
+                onClick={action.onclick}
+              >
+                {action.icon}
+              </Icon>
+            ))}
           </div>
         </div>
         <div
@@ -92,17 +114,24 @@ export default function Card({ data }: { data: CardProps }) {
 function Icon({
   children,
   onClick,
+  loading = false,
 }: {
   children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  loading?: boolean;
 }) {
   return (
     <Button
-      disabled={!onclick ? false : true}
+      type="button"
+      disabled={loading}
       onClick={onClick}
-      className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white"
+      className="rounded-md px-2 py-2 group border bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white"
     >
-      {children}
+      {loading ? (
+        <LoaderCircle className="animate-spin transition-all duration-500" />
+      ) : (
+        children
+      )}
     </Button>
   );
 }

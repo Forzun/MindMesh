@@ -29,7 +29,7 @@ export default function useDeleteContent(options?: userDeleteContentProps) {
 
   const deleteContent = async (id: number) => {
     try {
-      setLoading(true);
+      setLoading(false);
       const response = await axios.post(`/api/deleteContent`, {
         data: {
           id: id,
@@ -41,11 +41,12 @@ export default function useDeleteContent(options?: userDeleteContentProps) {
           isDelete: true,
           message: response.data.message || "Content deleted successfully",
         });
-        setLoading(false);
-        options?.onSuccess?.();
+        setLoading(true);
+        options?.onSuccess?.(); 
         return;
       }
     } catch (error) {
+      console.log(error);
       setError({
         success: false,
         message: "Something went wrong",
@@ -53,7 +54,7 @@ export default function useDeleteContent(options?: userDeleteContentProps) {
       options?.onError?.();
       return;
     } finally {
-      setLoading(false);
+      setLoading(true);
       options?.onSuccess?.();
     }
   };

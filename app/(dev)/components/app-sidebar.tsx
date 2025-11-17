@@ -1,6 +1,6 @@
 "use client";
 
-import {LifeBuoy, Send } from "lucide-react";
+import { LifeBuoy, Send } from "lucide-react";
 
 import {
   Sidebar,
@@ -57,7 +57,7 @@ const data = {
       isActive: false,
       items: [
         {
-          title: "study with ..",
+          title: "",
           url: "#",
         },
       ],
@@ -80,7 +80,7 @@ const data = {
       ),
       items: [
         {
-          title: "solving with ..",
+          title: "",
           url: "#",
         },
       ],
@@ -103,19 +103,19 @@ const data = {
       ),
       items: [
         {
-          title: "Introduction",
+          title: "",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "",
           url: "#",
         },
         {
-          title: "Changelog",
+          title: "",
           url: "#",
         },
       ],
@@ -140,19 +140,19 @@ const data = {
 
       items: [
         {
-          title: "General",
+          title: "",
           url: "#",
         },
         {
-          title: "Team",
+          title: "",
           url: "#",
         },
         {
-          title: "Billing",
+          title: "",
           url: "#",
         },
         {
-          title: "Limits",
+          title: "",
           url: "#",
         },
       ],
@@ -190,7 +190,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     if (!loading && content && !hasProcessed.current) {
       hasProcessed.current = true;
 
-      // MapContent({ content, data: { navMain: data.navMain } });
+      MapContent({ content, data: { navMain: data.navMain } });
       console.log("should run only once!..");
     }
   }, [loading, content]);
@@ -229,8 +229,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavUser
           user={{
             id: session?.user.id || "",
-            name: session?.user.name || undefined || "User",
-            email: session?.user.username || "User@gmail.com",
+            name: session?.user.name || undefined,
+            email: session?.user.username || undefined,
             avatar: session?.user.image || undefined,
           }}
         />
