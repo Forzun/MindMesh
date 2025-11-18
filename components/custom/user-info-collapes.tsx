@@ -4,7 +4,13 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@radix-ui/react-collapsible";
-import { Check, ChevronsUpDown, ContactRound, IdCard, User } from "lucide-react";
+import {
+  Check,
+  ChevronsUpDown,
+  ContactRound,
+  IdCard,
+  User,
+} from "lucide-react";
 import { Button } from "../ui/button";
 import { useState } from "react";
 import { Session } from "next-auth";
@@ -19,10 +25,10 @@ export default function InfoCollaps({ session }: { session: Session | null }) {
       className="flex w-full h-full justify-end pb-7 flex-col gap-2"
     >
       <div className="flex items-center justify-between">
-        <h1 className="text-md font-semibold flex items-center gap-1 text-neutral-200">
+        <h1 className="text-md font-semibold flex items-center gap-1 text-neutral-600 dark:text-neutral-300">
           {" "}
           <span>
-            <ContactRound className="h-5 text-neutral-300" />
+            <ContactRound className="h-5 text-neutral-600 dark:text-neutral-300" />
           </span>{" "}
           User Details
         </h1>

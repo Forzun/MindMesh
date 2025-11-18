@@ -6,7 +6,6 @@ import ShareIcon from "@/components/icons/share-icon";
 import TwitterSvg from "@/components/icons/x-svg";
 import { useState } from "react";
 
-
 export default function Test() {
   return (
     <div className="max-w-screen min-h-screen px-5">
@@ -28,7 +27,7 @@ const Dashboard = () => {
         onClick={() => setHidden(!hidden)}
         className="min-h-fit w-full grid grid-cols-1 md:grid-cols-5 gap-4 md:pl-5 pl-12 pt-10"
       >
-        <div className="bg-white dark:bg-neutral-900  rounded-xl min-w-80 w-full h-fit border-1 border-dashed border-inset px-3 py-3 transition-normal duration-200 delay-75 hover:inset-shadow-sm hover:inset-shadow-neutral-800 transition-all ease-in">
+        <div className="bg-neutral-50 dark:bg-neutral-900  rounded-xl min-w-80 w-full h-fit border-1 border-dashed border-inset px-3 py-3 transition-normal duration-200 delay-75 dark:hover:inset-shadow-sm dark:hover:inset-shadow-neutral-800 transition-all ease-in shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]">
           <div className="flex flex-col w-full h-full gap-2">
             <div className="flex items-center justify-between">
               <div className="flex text items-center cursor-pointer gap-2 text-neutral-700 tracking-tight dark:text-neutral-300 text-base">
@@ -43,8 +42,18 @@ const Dashboard = () => {
               </div>
               <div className="flex gap-2 items-center">
                 {[
-                  { id: 1, icon: <ShareIcon /> },
-                  { id: 2, icon: <DeleteIcon className="text-neutral-300" /> },
+                  {
+                    id: 1,
+                    icon: (
+                      <ShareIcon className="dark:text-neutral-300 text-neutral-950" />
+                    ),
+                  },
+                  {
+                    id: 2,
+                    icon: (
+                      <DeleteIcon className="dark:text-neutral-300 text-neutral-500" />
+                    ),
+                  },
                 ].map((icon, index) => {
                   return <Icon key={index}>{icon.icon}</Icon>;
                 })}
@@ -59,7 +68,6 @@ const Dashboard = () => {
             >
               {/* <TwitterEmbed url="https://x.com/krishdotdev/status/1987069483211759917" /> */}
               <YoutubeEmbed url="https://www.youtube.com/watch?v=okafXM31xGk&t=1947s" />
-
             </div>
           </div>
         </div>
@@ -70,7 +78,7 @@ const Dashboard = () => {
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-md px-2 py-2 group border-[1px] bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white">
+    <div className="rounded-md px-2 py-2 group border-[1px] dark:bg-neutral-700/30 dark:hover:bg-neutral-900/40 hover:bg-neutral-10 transition-all ease-in duration-300 border-dashed dark:border-neutral-600 border-neutral-500/50 text-white"> 
       {children}
     </div>
   );

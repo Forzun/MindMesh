@@ -59,10 +59,14 @@ export default function Card({ data }: { data: CardProps }) {
   };
 
   const action = [
-    { id: 1, icon: <ShareIcon />, onclick: handleShare },
+    {
+      id: 1,
+      icon: <ShareIcon className="dark:text-neutral-300 text-neutral-900" />,
+      onclick: handleShare,
+    },
     {
       id: 2,
-      icon: <DeleteIcon className="text-neutral-300" />,
+      icon: <DeleteIcon className="dark:text-neutral-400 text-neutral-600" />,
       onclick: handleDelete,
     },
   ];
@@ -70,7 +74,7 @@ export default function Card({ data }: { data: CardProps }) {
   return (
     <div
       onClick={() => setHidden(!hidden)}
-      className="bg-white dark:bg-neutral-900 rounded-xl min-w-80 w-full min-h-7 h-fit border-1 border-dashed border-inset px-3 py-3 transition-normal duration-200 delay-75 hover:inset-shadow-sm hover:inset-shadow-neutral-800 transition-all ease-in"
+      className="bg-neutral-50 dark:bg-neutral-900  rounded-xl min-w-80 w-full h-fit border-1 border-dashed border-inset px-3 py-3 transition-normal duration-200 delay-75 dark:hover:inset-shadow-sm dark:hover:inset-shadow-neutral-800 transition-all ease-in shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
     >
       <div className="flex flex-col w-full h-full gap-2">
         <div className="flex items-center justify-between">
@@ -125,7 +129,7 @@ function Icon({
       type="button"
       disabled={loading}
       onClick={onClick}
-      className="rounded-md px-2 py-2 group border bg-neutral-700/30 hover:bg-neutral-900/40 transition-all ease-in duration-300 border-dashed border-neutral-600 text-white"
+      className="rounded-md px-1 py-2 group border-[1px] bg-neutral-200/30 dark:bg-neutral-900 dark:hover:bg-neutral-800/30 hover:bg-neutral-100 transition-all ease-in duration-300 border-dashed dark:border-neutral-700/70 border-neutral-500/40 "
     >
       {loading ? (
         <LoaderCircle className="animate-spin transition-all duration-500" />

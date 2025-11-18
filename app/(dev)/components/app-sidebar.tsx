@@ -107,18 +107,6 @@ const data = {
           title: "",
           url: "#",
         },
-        {
-          title: "",
-          url: "#",
-        },
-        {
-          title: "",
-          url: "#",
-        },
-        {
-          title: "",
-          url: "#",
-        },
       ],
     },
     {
@@ -140,18 +128,6 @@ const data = {
       ),
 
       items: [
-        {
-          title: "",
-          url: "#",
-        },
-        {
-          title: "",
-          url: "#",
-        },
-        {
-          title: "",
-          url: "#",
-        },
         {
           title: "",
           url: "#",
@@ -198,7 +174,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="" variant="inset" {...props}>
-      <ThemeToggle />
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -227,6 +202,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+      <span className="w-full pl-3">
+        <ThemeToggle />
+      </span>
       <SidebarFooter>
         <NavUser
           user={{

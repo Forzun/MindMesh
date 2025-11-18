@@ -17,7 +17,7 @@ export default function ThemeToggle() {
 
   return (
     <motion.div
-      className="flex items-center justify-between p-1 rounded-full bg-neutral-100 dark:bg-black/90 w-fit"
+      className="flex items-center justify-between p-1 rounded-full bg-neutral-100 dark:bg-neutral-950/15 w-fit"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
@@ -25,17 +25,17 @@ export default function ThemeToggle() {
       <ThemeButton
         active={theme === "light"}
         onClick={() => setTheme("light")}
-        icon={<Sun size={16} />}
+        icon={<Sun size={14} />}
       />
       <ThemeButton
         active={theme === "system"}
         onClick={() => setTheme("system")}
-        icon={<Monitor size={16} />}
+        icon={<Monitor size={14} />}
       />
       <ThemeButton
         active={theme === "dark"}
         onClick={() => setTheme("dark")}
-        icon={<Moon size={16} />}
+        icon={<Moon size={14} />}
       />
     </motion.div>
   );
