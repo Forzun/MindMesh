@@ -30,6 +30,7 @@ export default function RootLayout({
             disableTransitionOnChange
         >
            {children}
+
            <Toaster className="bg-amber-400" position="top-center" theme="system" />
         </ThemeProvider>
       </body>

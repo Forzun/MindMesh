@@ -22,6 +22,7 @@ import { redirect } from "next/navigation";
 import useFetch from "@/hooks/useFetch";
 import Image from "next/image";
 import MapContent from "@/lib/utils/mapContent";
+import ThemeToggle from "@/components/theme-toggle";
 
 const data = {
   user: {
@@ -197,6 +198,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
   return (
     <Sidebar className="" variant="inset" {...props}>
+      <ThemeToggle />
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
