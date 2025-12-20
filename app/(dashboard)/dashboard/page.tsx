@@ -27,7 +27,7 @@ const Content = () => {
 
   useEffect(() => {
     axios
-      .get("/api/getcontent")
+      .get("api/getcontent")
       .then((res) => {
         setData(res.data.data);
       })
