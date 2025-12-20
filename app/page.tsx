@@ -13,6 +13,8 @@ const getUserDetails = async () => {
 export default async function Home() {
   const session = await getUserDetails();
 
+  console.log(session);
+
   if (session) {
     redirect("/dashboard");
     return null;

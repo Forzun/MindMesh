@@ -31,7 +31,7 @@ export default function NewItem() {
         // inputData.push(data); 
         // console.log(data)
     
-        const response = await axios.post("http://localhost:3000/api/content", { 
+        const response = await axios.post("'/api/content", { 
             title:data.title, 
             link:data.url, 
             tag:[platform], 
