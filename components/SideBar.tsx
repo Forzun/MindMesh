@@ -81,7 +81,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("https://mind-mesh-ochre.vercel.app/dashboard/api/getcontent")
+      .get("api/getcontent")
       .then((res) => {
         setData(res.data.data);
       })
