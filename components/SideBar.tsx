@@ -81,7 +81,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("api/getcontent")
+      .get("api/getcontent", {
+        withCredentials: true,
+      })
       .then((res) => {
         setData(res.data.data);
       })
