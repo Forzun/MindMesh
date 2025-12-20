@@ -25,7 +25,7 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import SignOutButton from "./SIgnOut";
+import { SignOutButton } from "./SIgnOut";
 import RedirectButton from "./RedirectButton";
 import Link from "next/link";
 import Image from "next/image";
